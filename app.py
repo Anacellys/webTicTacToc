@@ -14,16 +14,8 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'AnacelisServer12')
 app.config['SESSION_TYPE'] = 'filesystem'
 
-# Configuración de SocketIO para producción
-socketio = SocketIO(
-    app, 
-    cors_allowed_origins="*",
-    async_mode='eventlet',
-    logger=True,
-    engineio_logger=False,
-    ping_timeout=60,
-    ping_interval=25
-)
+# Configurar SocketIO con Eventlet
+socketio = SocketIO(app, async_mode='eventlet')
 
 # Almacenar juegos activos (en producción usaríamos Redis)
 games = {}
