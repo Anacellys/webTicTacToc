@@ -5,17 +5,18 @@ import json
 import os
 import time
 
-import eventlet
-eventlet.monkey_patch()
-
-
+# NOTA: Se elimina eventlet por incompatibilidad con Python 3.13
+# y se reemplaza por gevent que ya está en tus dependencias
+# Si necesitas monkey-patching, descomenta la siguiente línea:
+# from gevent import monkey
+# monkey.patch_all()
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'AnacelisServer12')
 app.config['SESSION_TYPE'] = 'filesystem'
 
-# Configurar SocketIO con Eventlet
-socketio = SocketIO(app, async_mode='eventlet')
+# Configurar SocketIO con Gevent (compatible con Python 3.13)
+socketio = SocketIO(app, async_mode='gevent', cors_allowed_origins="*")
 
 # Almacenar juegos activos (en producción usaríamos Redis)
 games = {}
@@ -133,7 +134,6 @@ class Game:
 
 # Limpiar juegos viejos (cada hora)
 def cleanup_old_games():
-    import time
     current_time = time.time()
     rooms_to_delete = []
     
@@ -400,4 +400,11 @@ if __name__ == '__main__':
     print(f"URL: http://localhost:{port}")
     print(f"Juegos activos: {len(games)}")
     
-    
+  
+    socketio.run(
+        app,
+        host="0.0.0.0",
+        port=port,
+        debug=debug,
+        allow_unsafe_werkzeug=True
+    )
