@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'AnacelisServer12')
 app.config['SESSION_TYPE'] = 'filesystem'
 
-socketio = SocketIO(app, async_mode='threading', cors_allowed_origins="*", manage_session=False)
+socketio = SocketIO(app, async_mode='eventlet', cors_allowed_origins="*")
 
 # Almacenar juegos activos (en producción usaríamos Redis)
 games = {}
