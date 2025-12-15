@@ -11,7 +11,7 @@ eventlet.monkey_patch()
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'AnacelisServer12')
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 's')
 app.config['SESSION_TYPE'] = 'filesystem'
 
 # Configuración de SocketIO para producción
