@@ -9,8 +9,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'AnacelisServer12')
 app.config['SESSION_TYPE'] = 'filesystem'
 
-# Configurar SocketIO con Gevent (compatible con Python 3.13)
-socketio = SocketIO(app, async_mode='gevent', cors_allowed_origins="*")
+socketio = SocketIO(app, async_mode='threading', cors_allowed_origins="*", manage_session=False)
 
 # Almacenar juegos activos (en producción usaríamos Redis)
 games = {}
