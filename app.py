@@ -5,11 +5,7 @@ import json
 import os
 import time
 
-# NOTA: Se elimina eventlet por incompatibilidad con Python 3.13
-# y se reemplaza por gevent que ya está en tus dependencias
-# Si necesitas monkey-patching, descomenta la siguiente línea:
-# from gevent import monkey
-# monkey.patch_all()
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'AnacelisServer12')
@@ -408,3 +404,4 @@ if __name__ == '__main__':
         debug=debug,
         allow_unsafe_werkzeug=True
     )
+    
