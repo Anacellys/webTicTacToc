@@ -5,8 +5,6 @@ import json
 import os
 import time
 
-
-
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'AnacelisServer12')
 app.config['SESSION_TYPE'] = 'filesystem'
@@ -396,7 +394,6 @@ if __name__ == '__main__':
     print(f"URL: http://localhost:{port}")
     print(f"Juegos activos: {len(games)}")
     
-  
     socketio.run(
         app,
         host="0.0.0.0",
@@ -404,4 +401,3 @@ if __name__ == '__main__':
         debug=debug,
         allow_unsafe_werkzeug=True
     )
-    
